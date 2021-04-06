@@ -1,7 +1,9 @@
 import React,{ useEffect, useState }  from "react";
 
 import "./App.css";
-import colors from './color'
+import colors from './color';
+import $ from 'jquery';
+window.$ = $;
 
 let quoteDB = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json'
 
@@ -28,10 +30,19 @@ function App() {
   const getRandomQuote = () => {
     let randomInterger = Math.floor(quotes.length*Math.random())
     let randomColor = Math.floor(colors.length*Math.random())
+
+    $('.heading').animate({ opacity: 0 }, 500, function () {
+      $(this).animate({ opacity: 1 }, 500);
+      $('#text').text(quotes[randomInterger].quote);
+    });
+  
+    $('.quote-author').animate({ opacity: 0 }, 500, function () {
+      $(this).animate({ opacity: 1 }, 500);
+      $('#author').html(`- ${quotes[randomInterger].author}`);
+    });
+
     setRandomNumber(randomInterger)
     setAccentColor(colors[randomColor])
-    setQuote(quotes[randomInterger].quote)
-    setAuthor(quotes[randomInterger].author)
   }
 
     return (
@@ -39,8 +50,8 @@ function App() {
         <header className="app-header"><i class="fas fa-quote-left"></i>quotes<i class="fas fa-quote-right"></i></header>
         <div className="card">
          
-          <h1 className="heading"> <i class="fas fa-quote-left"></i>{quote}</h1>
-          <p id="author">- {author}</p>
+          <h1 className="heading" id="text"> <i class="fas fa-quote-left"></i>{quote}</h1>
+          <p id="author" className="quote-author">- {author}</p>
           <button className="buttons" id="new-quote" onClick={() => getRandomQuote()} style={{backgroundColor:accentColor}}>
             New Quote
           </button>
