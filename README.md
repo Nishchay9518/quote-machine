@@ -1,2 +1,7 @@
 # quote-machine
-Simple ReactJs App
+
+Simple ReactJS Project using userState and userEffect Hooks.
+
+## Live Application URL 
+
+### https://quoteman.netlify.app/
